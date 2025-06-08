@@ -1,0 +1,6 @@
+{
+  "name": "HTML Slide Editor",
+  "description": "An application for creating and presenting HTML-based slides. It features a three-pane layout: a slide navigator for adding, deleting, and selecting slides, a code editor for inputting HTML for the selected slide, and a live preview pane. Clicking on elements in the preview highlights the corresponding code in the editor, facilitating quick edits and an intuitive workflow for slide creation.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

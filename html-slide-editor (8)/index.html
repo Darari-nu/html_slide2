@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Slide Editor - Flat Edition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Define R, G, B components for colors used in calc() */
+      --color-base-rgb-r: 249; --color-base-rgb-g: 249; --color-base-rgb-b: 249;
+      --color-primary-rgb-r: 74; --color-primary-rgb-g: 144; --color-primary-rgb-b: 226;
+      --color-secondary-rgb-r: 80; --color-secondary-rgb-g: 227; --color-secondary-rgb-b: 194;
+      --color-accent-1-rgb-r: 255; --color-accent-1-rgb-g: 209; --color-accent-1-rgb-b: 102; /* Yellow */
+      --color-accent-2-rgb-r: 242; --color-accent-2-rgb-g: 95; --color-accent-2-rgb-b: 92;   /* Red */
+      --color-accent-3-rgb-r: 157; --color-accent-3-rgb-g: 89; --color-accent-3-rgb-b: 236;  /* Purple */
+      --color-text-primary-rgb-r: 51; --color-text-primary-rgb-g: 51; --color-text-primary-rgb-b: 51;    /* Dark Gray */
+      --color-text-secondary-rgb-r: 117; --color-text-secondary-rgb-g: 117; --color-text-secondary-rgb-b: 117; /* Medium Gray */
+      --color-border-rgb-r: 224; --color-border-rgb-g: 224; --color-border-rgb-b: 224;   /* Light Gray */
+      --color-white-rgb-r: 255; --color-white-rgb-g: 255; --color-white-rgb-b: 255;
+
+      /* Composite color variables */
+      --color-base: rgb(var(--color-base-rgb-r), var(--color-base-rgb-g), var(--color-base-rgb-b));
+      --color-primary: rgb(var(--color-primary-rgb-r), var(--color-primary-rgb-g), var(--color-primary-rgb-b));
+      --color-secondary: rgb(var(--color-secondary-rgb-r), var(--color-secondary-rgb-g), var(--color-secondary-rgb-b));
+      --color-accent-1: rgb(var(--color-accent-1-rgb-r), var(--color-accent-1-rgb-g), var(--color-accent-1-rgb-b));
+      --color-accent-2: rgb(var(--color-accent-2-rgb-r), var(--color-accent-2-rgb-g), var(--color-accent-2-rgb-b));
+      --color-accent-3: rgb(var(--color-accent-3-rgb-r), var(--color-accent-3-rgb-g), var(--color-accent-3-rgb-b));
+      --color-text-primary: rgb(var(--color-text-primary-rgb-r), var(--color-text-primary-rgb-g), var(--color-text-primary-rgb-b));
+      --color-text-secondary: rgb(var(--color-text-secondary-rgb-r), var(--color-text-secondary-rgb-g), var(--color-text-secondary-rgb-b));
+      --color-border: rgb(var(--color-border-rgb-r), var(--color-border-rgb-g), var(--color-border-rgb-b));
+      --color-white: rgb(var(--color-white-rgb-r), var(--color-white-rgb-g), var(--color-white-rgb-b));
+
+      --font-sans: 'Roboto', 'Lato', sans-serif;
+      --font-mono: 'Courier New', Courier, monospace;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      margin: 0;
+      overscroll-behavior: none;
+      background-color: var(--color-base);
+      color: var(--color-text-primary);
+      overflow: hidden;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(var(--color-border-rgb-r), var(--color-border-rgb-g), var(--color-border-rgb-b), 0.5);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-secondary);
+      border-radius: 10px;
+      border: 2px solid rgba(var(--color-base-rgb-r), var(--color-base-rgb-g), var(--color-base-rgb-b), 0.8);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-primary);
+    }
+
+    ::selection {
+      background-color: var(--color-accent-1);
+      color: var(--color-text-primary);
+      text-shadow: none;
+    }
+    ::-moz-selection {
+      background-color: var(--color-accent-1);
+      color: var(--color-text-primary);
+      text-shadow: none;
+    }
+
+    /* Flat Button Style */
+    .flat-button {
+      background-color: var(--color-primary);
+      border: none;
+      color: var(--color-white);
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      border-radius: 8px; /* Rounded corners */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow */
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .flat-button:hover, .flat-button:focus {
+      background-color: rgb(
+        calc(var(--color-primary-rgb-r) * 0.9), 
+        calc(var(--color-primary-rgb-g) * 0.9), 
+        calc(var(--color-primary-rgb-b) * 0.9)
+      );
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      outline: none;
+    }
+    .flat-button:active {
+      background-color: rgb(
+        calc(var(--color-primary-rgb-r) * 0.8), 
+        calc(var(--color-primary-rgb-g) * 0.8), 
+        calc(var(--color-primary-rgb-b) * 0.8)
+      );
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      color: var(--color-white); /* Ensure text remains white on active */
+    }
+    .flat-button.disabled, .flat-button:disabled {
+      background-color: var(--color-border);
+      color: var(--color-text-secondary);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .flat-button.secondary {
+      background-color: var(--color-secondary);
+      color: var(--color-text-primary); /* Text color for secondary button */
+    }
+    .flat-button.secondary:hover, .flat-button.secondary:focus {
+      background-color: rgb(
+        calc(var(--color-secondary-rgb-r) * 0.9), 
+        calc(var(--color-secondary-rgb-g) * 0.9), 
+        calc(var(--color-secondary-rgb-b) * 0.9)
+      );
+    }
+     .flat-button.warning {
+      background-color: var(--color-accent-2); /* Red for warning/delete */
+      color: var(--color-white);
+    }
+    .flat-button.warning:hover, .flat-button.warning:focus {
+       background-color: rgb(
+        calc(var(--color-accent-2-rgb-r) * 0.9), 
+        calc(var(--color-accent-2-rgb-g) * 0.9), 
+        calc(var(--color-accent-2-rgb-b) * 0.9)
+      );
+    }
+    .flat-button.outline {
+      background-color: transparent;
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+      box-shadow: none;
+    }
+    .flat-button.outline:hover, .flat-button.outline:focus {
+      background-color: rgba(var(--color-primary-rgb-r), var(--color-primary-rgb-g), var(--color-primary-rgb-b), 0.05);
+      color: var(--color-primary);
+    }
+     .flat-button.outline.warning {
+        color: var(--color-accent-2);
+        border-color: var(--color-accent-2);
+    }
+    .flat-button.outline.warning:hover, .flat-button.outline.warning:focus {
+        background-color: rgba(var(--color-accent-2-rgb-r), var(--color-accent-2-rgb-g), var(--color-accent-2-rgb-b), 0.05);
+    }
+    
+    .flat-button.accent3 {
+      background-color: var(--color-accent-3); /* Purple */
+      color: var(--color-white);
+    }
+    .flat-button.accent3:hover, .flat-button.accent3:focus {
+      background-color: rgb(
+        calc(var(--color-accent-3-rgb-r) * 0.9), 
+        calc(var(--color-accent-3-rgb-g) * 0.9), 
+        calc(var(--color-accent-3-rgb-b) * 0.9)
+      );
+    }
+    .flat-button.accent3:active {
+      background-color: rgb(
+        calc(var(--color-accent-3-rgb-r) * 0.8), 
+        calc(var(--color-accent-3-rgb-g) * 0.8), 
+        calc(var(--color-accent-3-rgb-b) * 0.8)
+      );
+    }
+
+
+    /* Input field styling */
+    .flat-input {
+        background-color: var(--color-white);
+        border: 1px solid var(--color-border);
+        color: var(--color-text-primary);
+        padding: 0.6rem 0.8rem;
+        border-radius: 6px;
+        font-family: var(--font-sans);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .flat-input:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb-r), var(--color-primary-rgb-g), var(--color-primary-rgb-b), 0.2);
+    }
+    textarea.flat-input {
+      font-family: var(--font-mono); /* Keep monospace for code editor */
+    }
+    
+    .panel {
+      background-color: var(--color-white);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border: 1px solid var(--color-border);
+    }
+
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.4.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-base text-text-primary">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
