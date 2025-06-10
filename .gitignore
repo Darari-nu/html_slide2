@@ -1,0 +1,6 @@
+# Local Netlify folder
+# Local Netlify folder
+.netlify
+
+# Old deployment config
+windsurf_deployment.yaml
